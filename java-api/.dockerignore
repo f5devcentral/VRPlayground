@@ -1,0 +1,14 @@
+# Docker Files
+Dockerfile
+.dockerignore
+docker-compose.yml
+
+# Project Files
+.idea
+.gradle
+gradle*
+
+# Git Files
+.git
+.gitignore
+Readme.md

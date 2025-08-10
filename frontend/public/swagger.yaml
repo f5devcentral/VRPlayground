@@ -1,0 +1,1243 @@
+openapi: 3.1.0
+
+info:
+  title: VRPlayground
+  description: Vulnerability Research - Playground API server with various endpoints demonstrating different security vulnerabilities.
+  version: 1.0.0
+
+servers:
+  - url: /api
+
+components:
+  responses:
+    InternalServerError:
+      description: "Internal Server Error"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                description: "String"
+                example: "error occurred"
+  schemas:
+    Table:
+      type: array
+      items:
+        type: array
+
+paths:
+  # Python
+  /python/sql-injection/union:
+    post:
+      "tags":
+        - "Vulnerability"
+        - "Python"
+        - "SQL Injection"
+      description: "SQL Injection: Union"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+                  description: "Text"
+                  example: "1"
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    $ref: '#/components/schemas/Table'
+                    description: "Table"
+                    example: [ [ 1, "admin", "admin" ] ]
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  /python/sql-injection/error:
+    post:
+      "tags":
+        - "Vulnerability"
+        - "Python"
+        - "SQL Injection"
+      description: "SQL Injection: Error"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+                  description: "Text"
+                  example: "1"
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: string
+                    description: "String"
+                    example: "no error"
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  /python/sql-injection/boolean:
+    post:
+      "tags":
+        - "Vulnerability"
+        - "Python"
+        - "SQL Injection"
+      description: "SQL Injection: Boolean"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+                  description: "Text"
+                  example: "1"
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: string
+                    description: "Boolean"
+                    example: "True"
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  /python/sql-injection/blind:
+    post:
+      "tags":
+        - "Vulnerability"
+        - "Python"
+        - "SQL Injection"
+      description: "SQL Injection: Blind"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+                  description: "Text"
+                  example: "1"
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: string
+                    description: "String"
+                    example: "blind"
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  /python/xss/tag:
+    post:
+      "tags":
+        - "Vulnerability"
+        - "Python"
+        - "XSS"
+      description: "Cross Site Scripting (XSS): Tag"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                template:
+                  type: string
+                  description: "TextareaEX"
+                  example: "Template"
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: string
+                    description: "HTML"
+                    example: |-
+                      <!DOCTYPE html>
+                      <html lang="en">
+                      <head>
+                          <meta charset="UTF-8">
+                          <title>VR Playground</title>
+                      </head>
+                      <body>
+                      <div id="app">
+                          <h3>Template</h3>
+                      </div>
+                      </body>
+                      </html>
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  /python/xss/link:
+    post:
+      "tags":
+        - "Vulnerability"
+        - "Python"
+        - "XSS"
+      description: "Cross Site Scripting (XSS): Link"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                url:
+                  type: string
+                  description: "Text"
+                  example: "http://httpbin.org/get"
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: string
+                    description: "HTML"
+                    example: |-
+                      <!DOCTYPE html>
+                      <html lang="en">
+                      <head>
+                          <meta charset="UTF-8">
+                          <title>VR Playground</title>
+                      </head>
+                      <body>
+                      <div id="app">
+                          <h3><a href="http://httpbin.org/get">Link</a></h3>
+                      </div>
+                      </body>
+                      </html>
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  /python/xss/event:
+    post:
+      "tags":
+        - "Vulnerability"
+        - "Python"
+        - "XSS"
+      description: "Cross Site Scripting (XSS): Event"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                style:
+                  type: string
+                  description: "Text"
+                  example: "width:250px;height:250px"
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: string
+                    description: "HTML"
+                    example: |-
+                      <!DOCTYPE html>
+                      <html lang="en">
+                      <head>
+                          <meta charset="UTF-8">
+                          <title>VR Playground</title>
+                      </head>
+                      <body>
+                      <div id="app">
+                          <img src="/img/F5-SRT.png" class="ml-4" style=width:250px;height:250px />
+                      </div>
+                      </body>
+                      </html>
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  /python/xss/code:
+    post:
+      "tags":
+        - "Vulnerability"
+        - "Python"
+        - "XSS"
+      description: "Cross Site Scripting (XSS): Code"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                json:
+                  type: string
+                  description: "Text"
+                  example: '{"users": ["admin", "user", "guest"]}'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: string
+                    description: "HTML"
+                    example: |-
+                      <!DOCTYPE html>
+                      <html lang="en">
+                      <head>
+                          <meta charset="UTF-8">
+                          <title>VR Playground</title>
+                      </head>
+                      <body>
+                      <div id="app">
+                          <pre id="page"></pre>
+                          <script type="application/javascript">
+                              document.querySelector("#page").innerText = JSON.stringify({"users": ["admin", "user", "guest"]}, null, 2);
+                          </script>
+                      </div>
+                      </body>
+                      </html>
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  /python/csti/angularjs:
+    get:
+      "tags":
+        - "Vulnerability"
+        - "Python"
+        - "Client Side Template Injection"
+      description: "Client Side Template Injection: AngularJS"
+      parameters:
+        - in: query
+          name: template
+          schema:
+            type: string
+            description: "TextareaEx"
+            example: "Template"
+      responses:
+        '200':
+          description: OK
+          content:
+            text/html:
+              schema:
+                type: string
+                description: "HTML"
+                example: |-
+                  <!DOCTYPE html>
+                  <html lang="en">
+                  <head>
+                      <meta charset="UTF-8">
+                      <title>VR Playground</title>
+                  </head>
+                  <body>
+                  <div ng-app>
+                      <h3>Template</h3>
+                  </div>
+                  <script src="//code.angularjs.org/1.5.5/angular.min.js"></script>
+                  </body>
+                  </html>
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  /python/csti/vue:
+    post:
+      "tags":
+        - "Vulnerability"
+        - "Python"
+        - "Client Side Template Injection"
+      description: "Client Side Template Injection: Vue3"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                template:
+                  type: string
+                  description: "Textarea"
+                  example: "Template"
+      responses:
+        '200':
+          description: OK
+          content:
+            text/html:
+              schema:
+                type: string
+                description: "HTML"
+                example: |-
+                  <!DOCTYPE html>
+                  <html lang="en">
+                  <head>
+                      <meta charset="UTF-8">
+                      <title>VR Playground</title>
+                  </head>
+                  <body>
+                  <div id="app">
+                      <h3>Template</h3>
+                  </div>
+                  <script src="//unpkg.com/vue@3.2.20"></script>
+                  <script>
+                      const app = Vue.createApp({})
+                      app.mount('#app')
+                  </script>
+                  </body>
+                  </html>
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  /python/deserialization/pickle:
+    post:
+      "tags":
+        - "Vulnerability"
+        - "Python"
+        - "Insecure Deserialization"
+      description: "Insecure Deserialization: Pickle"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                object:
+                  type: string
+                  description: "Textarea"
+                  example: "gASVJwAAAAAAAAB9lIwFdXNlcnOUXZQojAVhZG1pbpSMBHVzZXKUjAVndWVzdJRlcy4="
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: string
+                    description: "String"
+                    example: "{'users': ['admin', 'user', 'guest']}"
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  /python/ssti/jinja:
+    post:
+      "tags":
+        - "Vulnerability"
+        - "Python"
+        - "Server Side Template Injection"
+      description: "Server Side Template Injection: Jinja"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                template:
+                  type: string
+                  description: "TextareaEX"
+                  example: "Template"
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: string
+                    description: "String"
+                    example: "Template"
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  # NodeJS
+  /nodejs/nosql-injection:
+    post:
+      "tags":
+        - "Vulnerability"
+        - "NodeJS"
+        - "NoSQL Injection"
+      description: "NO-SQL Injection"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  description: "Text"
+                  example: "admin"
+                password:
+                  type: string
+                  description: "Password"
+                  example: "admin"
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: object
+                    description: "Object"
+                    example: [
+                      {
+                        "_id": "65b402a07406871e9e8b3fa3",
+                        "id": 1,
+                        "__v": 0,
+                        "password": "admin",
+                        "username": "admin"
+                      }
+                    ]
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  /nodejs/path-traversal:
+    get:
+      "tags":
+        - "Vulnerability"
+        - "NodeJS"
+        - "Path Traversal"
+      description: "Path Traversal"
+      parameters:
+        - in: query
+          name: path
+          schema:
+            type: string
+            description: "Text"
+            example: "public/image.png"
+      responses:
+        '200':
+          description: OK
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                description: "Image"
+                format: binary
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  /nodejs/command-injection/argument:
+    post:
+      "tags":
+        - "Vulnerability"
+        - "NodeJS"
+        - "Command Injection"
+      description: "Command Injection: Argument"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                argument:
+                  type: string
+                  description: "Text"
+                  example: "Command Argument"
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: string
+                    description: "String"
+                    example: "Command Argument"
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  /nodejs/command-injection/command:
+    post:
+      "tags":
+        - "Vulnerability"
+        - "NodeJS"
+        - "Command Injection"
+      description: "Command Injection: Command"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                argument:
+                  type: string
+                  description: "Text"
+                  example: "Command Argument"
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: string
+                    description: "String"
+                    example: "Command Argument"
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  /nodejs/ssrf:
+    post:
+      "tags":
+        - "Vulnerability"
+        - "NodeJS"
+        - "SSRF"
+      description: "Server Side Request Forgery (SSRF)"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                url:
+                  type: string
+                  description: "Text"
+                  example: "http://httpbin.org/get"
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: string
+                    description: "HTML"
+                    example: '{ "args": {}, "headers": { "Host": "httpbin.org", "User-Agent": "node" }, "origin": "127.0.0.1", "url": "http://httpbin.org/get" }'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  /nodejs/regex-dos:
+    post:
+      "tags":
+        - "Vulnerability"
+        - "NodeJS"
+        - "Denial of Service"
+      description: "Regex Denial of Service (Regex DOS)"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  description: "Text"
+                  example: "realgam3@gmail.com"
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: boolean
+                    description: "Boolean"
+                    example: true
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  # Java
+  /java/deserialization:
+    post:
+      "tags":
+        - "Vulnerability"
+        - "Java"
+        - "Insecure Deserialization"
+      description: "Insecure Deserialization"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                object:
+                  type: string
+                  description: "Textarea"
+                  example: "rO0ABXNyABFqYXZhLnV0aWwuQ29sbFNlcleOq7Y6G6gRAwABSQADdGFneHAAAAADdwQAAAACdAAGcmVzdWx0dAAOb2JqLnRvU3RyaW5nKCl4"
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: string
+                    description: "String"
+                    example: "{result=obj.toString()}"
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  /java/xxe:
+    post:
+      "tags":
+        - "Vulnerability"
+        - "Java"
+        - "XXE"
+      description: "XML External Entity Injection (XXE)"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                xml:
+                  type: string
+                  description: "Textarea"
+                  example: |-
+                    <?xml version="1.0" encoding="UTF-8"?>
+                    <user>
+                      <name>realgam3</name>
+                    </user>
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: string
+                    description: "String"
+                    example: "realgam3"
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  # Ruby
+  /ruby/deserialization/marshal:
+    post:
+      "tags":
+        - "Vulnerability"
+        - "Ruby"
+        - "Insecure Deserialization"
+      description: "Insecure Deserialization: Marshal"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                object:
+                  type: string
+                  description: "Textarea"
+                  example: "BAh7BjoKdXNlcnNbCEkiCmFkbWluBjoGRVRJIgl1c2VyBjsGVEkiCmd1ZXN0BjsGVA=="
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: string
+                    description: "String"
+                    example: "{:users=>[\"admin\", \"user\", \"guest\"]}"
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /ruby/deserialization/yaml:
+    post:
+      "tags":
+        - "Vulnerability"
+        - "Ruby"
+        - "Insecure Deserialization"
+      description: "Insecure Deserialization: YAML"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                yaml:
+                  type: string
+                  description: "Textarea"
+                  example: "users: [admin, user, guest]"
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: string
+                    description: "String"
+                    example: "{\"users\"=>[\"admin\", \"user\", \"guest\"]}"
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  # PHP
+  /php/type-juggling:
+    post:
+      "tags":
+        - "Vulnerability"
+        - "PHP"
+        - "Type Juggling"
+      description: "Type Juggling"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                password:
+                  type: string
+                  description: "Password"
+                  example: "admin"
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: boolean
+                    description: "Boolean"
+                    example: true
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /php/xxe:
+    post:
+      "tags":
+        - "Vulnerability"
+        - "PHP"
+        - "XXE"
+      description: "XML External Entity Injection (XXE)"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                xml:
+                  type: string
+                  description: "Textarea"
+                  example: |-
+                    <?xml version="1.0" encoding="UTF-8"?>
+                    <user>
+                      <name>h3ng01</name>
+                    </user>
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: string
+                    description: "String"
+                    example: "h3ng01u"
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+#  /python/sql-injection/union2:
+#    post:
+#      "tags":
+#        - "Research"
+#        - "Python"
+#        - "SQL Injection"
+#      description: "SQL Injection: Union  - Research"
+#      requestBody:
+#        required: true
+#        content:
+#          application/json:
+#            schema:
+#              type: object
+#              properties:
+#                id:
+#                  type: string
+#                  description: "Text"
+#                  example: "1"
+#      responses:
+#        '200':
+#          description: OK
+#          content:
+#            application/json:
+#              schema:
+#                type: object
+#                properties:
+#                  result:
+#                    $ref: '#/components/schemas/Table'
+#                    description: "Table"
+#                    example: [ [ 1, "admin", "admin" ] ]
+#
+#  /python/xss/tag2:
+#    post:
+#      "tags":
+#        - "Research"
+#        - "Python"
+#        - "Cross Site Scripting"
+#      description: "Cross Site Scripting (XSS): Tag  - Research"
+#      requestBody:
+#        required: true
+#        content:
+#          application/json:
+#            schema:
+#              type: object
+#              properties:
+#                template:
+#                  type: string
+#                  description: "TextareaEX"
+#                  example: "Template"
+#      responses:
+#        '200':
+#          description: OK
+#          content:
+#            application/json:
+#              schema:
+#                type: object
+#                properties:
+#                  result:
+#                    type: string
+#                    description: "HTML"
+#                    example: |-
+#                      <!DOCTYPE html>
+#                      <html lang="en">
+#                      <head>
+#                          <meta charset="UTF-8">
+#                          <title>VR Playground</title>
+#                      </head>
+#                      <body>
+#                      <div id="app">
+#                          <h3>Template</h3>
+#                      </div>
+#                      </body>
+#                      </html>
+#
+#  /python/csti/angularjs2:
+#    get:
+#      "tags":
+#        - "Research"
+#        - "NodeJS"
+#        - "Client Side Template Injection"
+#      description: "Client Side Template Injection: AngularJS - Research"
+#      parameters:
+#        - in: query
+#          name: template
+#          schema:
+#            type: string
+#            description: "Textarea"
+#            example: "Template"
+#      responses:
+#        '200':
+#          description: OK
+#          content:
+#            text/html:
+#              schema:
+#                type: string
+#                description: "HTML"
+#
+#
+#  /nodejs/nosql-injection2:
+#    post:
+#      "tags":
+#        - "Research"
+#        - "NodeJS"
+#        - "SQL Injection"
+#      description: "NO-SQL Injection - Research"
+#      requestBody:
+#        required: true
+#        content:
+#          application/json:
+#            schema:
+#              type: object
+#              properties:
+#                username:
+#                  type: string
+#                  description: "Text"
+#                  example: "admin"
+#                password:
+#                  type: string
+#                  description: "Password"
+#                  example: "admin"
+#      responses:
+#        '200':
+#          description: OK
+#          content:
+#            application/json:
+#              schema:
+#                type: object
+#                properties:
+#                  result:
+#                    type: object
+#                    description: "Object"
+#                    example: [
+#                      {
+#                        "_id": "65b402a07406871e9e8b3fa3",
+#                        "id": 1,
+#                        "__v": 0,
+#                        "password": "admin",
+#                        "username": "admin"
+#                      }
+#                    ]
+#
+#  /nodejs/path-traversal2:
+#    get:
+#      "tags":
+#        - "Research"
+#        - "NodeJS"
+#        - "Path Traversal"
+#      description: "Path Traversal - Research"
+#      parameters:
+#        - in: query
+#          name: path
+#          schema:
+#            type: string
+#            description: "Text"
+#            example: "public/image.png"
+#      responses:
+#        '200':
+#          description: OK
+#          content:
+#            application/octet-stream:
+#              schema:
+#                type: string
+#                description: "Image"
+#                format: binary
+
+# research example
+#  /python/xss/tag:
+#     post:
+#       "tags":
+#         - "Research"
+#         - "Python"
+#         - "XSS"
+#       description: "Cross Site Scripting (XSS): Tag"
+#       summary: "XSS"
+#       requestBody:
+#         required: true
+#         content:
+#           application/json:
+#             schema:
+#               type: object
+#               properties:
+#                 template:
+#                   type: string
+#                   description: "TextareaEX"
+#                   example: "Template"
+#       responses:
+#         '200':
+#           description: OK
+#           content:
+#             application/json:
+#               schema:
+#                 type: object
+#                 properties:
+#                   result:
+#                     type: string
+#                     description: "HTML"
+#                     example: |-
+#                       <!DOCTYPE html>
+#                       <html lang="en">
+#                       <head>
+#                           <meta charset="UTF-8">
+#                           <title>VR Playground</title>
+#                       </head>
+#                       <body>
+#                       <div id="app">
+#                           <h3>Template</h3>
+#                       </div>
+#                       </body>
+#                       </html>
+#         '500':
+#           $ref: '#/components/responses/InternalServerError'
+#   /python/xss/link:
+#     post:
+#       "tags":
+#         - "Research"
+#         - "Python"
+#         - "XSS"
+#       description: "Cross Site Scripting (XSS): Link"
+#       summary: "XSS"
+#       requestBody:
+#         required: true
+#         content:
+#           application/json:
+#             schema:
+#               type: object
+#               properties:
+#                 url:
+#                   type: string
+#                   description: "Text"
+#                   example: "http://httpbin.org/get"
+#       responses:
+#         '200':
+#           description: OK
+#           content:
+#             application/json:
+#               schema:
+#                 type: object
+#                 properties:
+#                   result:
+#                     type: string
+#                     description: "HTML"
+#                     example: |-
+#                       <!DOCTYPE html>
+#                       <html lang="en">
+#                       <head>
+#                           <meta charset="UTF-8">
+#                           <title>VR Playground</title>
+#                       </head>
+#                       <body>
+#                       <div id="app">
+#                           <h3><a href="http://httpbin.org/get">Link</a></h3>
+#                       </div>
+#                       </body>
+#                       </html>
+#         '500':
+#           $ref: '#/components/responses/InternalServerError'
+#   /python/xss/event:
+#     post:
+#       "tags":
+#         - "Research"
+#         - "Python"
+#         - "XSS"
+#       description: "Cross Site Scripting (XSS): Event"
+#       summary: "XSS"
+#       requestBody:
+#         required: true
+#         content:
+#           application/json:
+#             schema:
+#               type: object
+#               properties:
+#                 style:
+#                   type: string
+#                   description: "Text"
+#                   example: "width:250px;height:250px"
+#       responses:
+#         '200':
+#           description: OK
+#           content:
+#             application/json:
+#               schema:
+#                 type: object
+#                 properties:
+#                   result:
+#                     type: string
+#                     description: "HTML"
+#                     example: |-
+#                       <!DOCTYPE html>
+#                       <html lang="en">
+#                       <head>
+#                           <meta charset="UTF-8">
+#                           <title>VR Playground</title>
+#                       </head>
+#                       <body>
+#                       <div id="app">
+#                           <img src="/img/F5-SRT.png" class="ml-4" style=width:250px;height:250px />
+#                       </div>
+#                       </body>
+#                       </html>
+#         '500':
+#           $ref: '#/components/responses/InternalServerError'
+#   /python/xss/code:
+#     post:
+#       "tags":
+#         - "Research"
+#         - "Python"
+#         - "XSS"
+#       description: "Cross Site Scripting (XSS): Code"
+#       summary: "XSS"
+#       requestBody:
+#         required: true
+#         content:
+#           application/json:
+#             schema:
+#               type: object
+#               properties:
+#                 json:
+#                   type: string
+#                   description: "Text"
+#                   example: '{"users": ["admin", "user", "guest"]}'
+#       responses:
+#         '200':
+#           description: OK
+#           content:
+#             application/json:
+#               schema:
+#                 type: object
+#                 properties:
+#                   result:
+#                     type: string
+#                     description: "HTML"
+#                     example: |-
+#                       <!DOCTYPE html>
+#                       <html lang="en">
+#                       <head>
+#                           <meta charset="UTF-8">
+#                           <title>VR Playground</title>
+#                       </head>
+#                       <body>
+#                       <div id="app">
+#                           <pre id="page"></pre>
+#                           <script type="application/javascript">
+#                               document.querySelector("#page").innerText = JSON.stringify({"users": ["admin", "user", "guest"]}, null, 2);
+#                           </script>
+#                       </div>
+#                       </body>
+#                       </html>
+#         '500':
+#           $ref: '#/components/responses/InternalServerError'

@@ -1,0 +1,11 @@
+# Editor directories and files
+.idea/
+.vscode/
+
+# Project Files
+npm-modules/
+dist/
+__pycache__/
+*.py[cdx]
+
+.DS_Store

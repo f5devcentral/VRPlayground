@@ -1,0 +1,11 @@
+# Docker Files
+Dockerfile
+.dockerignore
+docker-compose*.yml
+
+# Project Files
+.idea
+node_modules
+package-lock.json
+README.md
+LICENSE

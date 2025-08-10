@@ -1,0 +1,69 @@
+services:
+  mariadb:
+    image: mariadb:11.8
+    expose:
+      - "3306"
+    environment:
+      MARIADB_ROOT_PASSWORD: Oradoc_db1
+      MARIADB_DATABASE: tempdb
+    restart: always
+
+  mongodb:
+    image: mongo:8.0
+    expose:
+      - "27017"
+    restart: always
+
+  python-api:
+    build: python-api
+    environment:
+      MARIADB_HOST: mariadb
+    expose:
+      - "5000"
+    depends_on:
+      - mariadb
+    restart: always
+
+  java-api:
+    build: java-api
+    expose:
+      - "8080"
+    restart: always
+
+  nodejs-api:
+    build: nodejs-api
+    environment:
+      MONGODB_URL: mongodb://mongodb:27017/tempdb
+    depends_on:
+      - mongodb
+    expose:
+      - "3000"
+    restart: always
+
+  ruby-api:
+    build: ruby-api
+    expose:
+      - "4567"
+    restart: always
+
+  php-api:
+    build: php-api
+    expose:
+      - "80"
+    restart: always
+
+  frontend:
+    build: frontend
+    volumes:
+      - "./frontend/conf.d:/etc/nginx/conf.d"
+      - "./frontend/public/swagger.yaml:/usr/share/nginx/html/swagger.yaml"
+    #      - "./frontend/dist:/usr/share/nginx/html"
+    depends_on:
+      - java-api
+      - nodejs-api
+      - python-api
+      - ruby-api
+    ports:
+      - "80:80"
+    restart: always
+
