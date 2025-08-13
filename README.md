@@ -125,6 +125,15 @@ mkdir my-language-api
                 type: string
                 example: "malicious_input"
 ```
+Groups can be added by using the 'summary' field for comparison.
+```yaml
+# Add the 'summary' field to group endpoints to compare vulnerabilities
+/my-language/vulnerability-type:
+  post:
+    tags: ["My Language", "Vulnerability Type"]
+    description: "Description of the vulnerability"
+    summary: "tag1"
+```
 
 ### 3. Wire into Docker Compose
 ```yaml

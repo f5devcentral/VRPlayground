@@ -41,15 +41,7 @@ export default defineComponent({
     const store = useStore();
     const vulnerabilities = ref([]);
 
-    onMounted(async () => {
-      await store.dispatch("loadSwaggerData");
-      const swagger = computed(() => store.state.swaggerData);
-      vulnerabilities.value = getVulnerabiliriesByReaserchGroup(
-        swagger,
-        props.researchGroup
-      );
-    });
-    const getVulnerabiliriesByReaserchGroup = (swagger, researchGroup) => {
+    const getVulnerabilitiesByResearchGroup = (swagger, researchGroup) => {
       const vulnerabilities = swagger.value.paths
         .filter((x) => jsonpath.query(x, "$..summary")[0] === researchGroup)
         .map((x) => x.path);
@@ -60,6 +52,15 @@ export default defineComponent({
     const sendAll = () => {
       store.dispatch("sendAllRequests");
     };
+
+    onMounted(async () => {
+      await store.dispatch("loadSwaggerData");
+      const swagger = computed(() => store.state.swaggerData);
+      vulnerabilities.value = getVulnerabilitiesByResearchGroup(
+        swagger,
+        props.researchGroup
+      );
+    });
 
     return {
       sendAll,

@@ -16,9 +16,9 @@
       />
     </v-navigation-drawer>
     <v-container>
-      <h1 align="center" class="text-h2 mb-3" style="letter-spacing: 25px !important;">VR Playground</h1>
-      <h2 align="center" class="text-h6 mb-2">Explore The Playground</h2>
-      <h3 align="center" class="text-body-1 mb-9">{{ description }}</h3>
+      <h1 class="text-h2 mb-3 text-center" style="letter-spacing: 25px !important;">VR Playground</h1>
+      <h2 class="text-h6 mb-2 text-center">Explore The Playground</h2>
+      <h3 class="text-body-1 mb-9 text-center">{{ description }}</h3>
 
       <v-row v-if="Object.keys(filteredContent).length > 0">
         <v-col
@@ -63,10 +63,10 @@
 </template>
 
 <script>
-import { computed, ref, watch } from "vue";
-import { useStore } from "vuex";
-import { useRouter } from "vue-router";
-import { getUniqueGroupedData } from "@/utils/dataGrouping";
+import {computed, ref, watch} from "vue";
+import {useStore} from "vuex";
+import {useRouter} from "vue-router";
+import {getUniqueGroupedData} from "@/utils/dataGrouping";
 import jsonpath from "jsonpath";
 import TagsSelectorComponent from "@/components/TagsSelectorComponent.vue";
 
@@ -85,11 +85,9 @@ export default {
     const description = computed(() => swagger.value?.info.description || "");
 
     const groupByTags = (swagger, tagIndex) => {
-      let groupedSw = Object.groupBy(swagger.paths, (path) => {
-        let tags = jsonpath.query(path, "$..tags")[0][tagIndex] || "no tag";
-        return tags;
+      return Object.groupBy(swagger.paths, (path) => {
+        return jsonpath.query(path, "$..tags")[0][tagIndex] || "no tag";
       });
-      return groupedSw;
     };
 
     const groupedTags = computed(() => {
@@ -227,6 +225,9 @@ export default {
 <style scoped>
 .max-width-col {
   flex: 1 0 0;
-  max-width: 600px; /* Set your desired maximum width here */
+  max-width: 600px;
+}
+.text-center {
+  text-align: center;
 }
 </style>

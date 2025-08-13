@@ -1,16 +1,10 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
 import ExploreView from '../views/ExploreView.vue'
 import CheckVulnerabilityView from '../views/CheckVulnerabilityView.vue'
 import ResearchCompareView from '@/views/ResearchCompareView.vue'
 
 
 const routes: Array<RouteRecordRaw> = [
-  {
-    path: '/home',
-    name: 'home',
-    component: HomeView
-  },
   {
     path: '/',
     name: 'explore',
@@ -31,7 +25,6 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/:pathMatch(.*)*',
     redirect: '/'
-  
   }
 ]
   
@@ -43,4 +36,3 @@ const router = createRouter({
 })
 
 export default router
-
