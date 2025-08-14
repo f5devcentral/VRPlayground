@@ -72,7 +72,7 @@ See the full spec at **`/swagger.yaml`** and all routes under **`/api`**.
 ```bash
 # Clone the repository
 git clone https://github.com/f5devcentral/VRPlayground
-cd vrplayground-public
+cd VRPlayground
 
 # Start all services
 docker compose up -d
