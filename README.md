@@ -9,6 +9,8 @@ Run intentionally vulnerable microservices (Python, Node.js, Java, Ruby, PHP) be
 [![Docker](https://img.shields.io/badge/Docker-Ready-blue.svg)](https://www.docker.com/)
 [![OpenAPI](https://img.shields.io/badge/OpenAPI-3.1-green.svg)](https://swagger.io/specification/)
 
+![VRPlayground Logo](https://raw.githubusercontent.com/f5devcentral/VRPlayground/main/res/img/screenshot.png)
+
 ---
 
 ## 🎯 What is VRPlayground?
