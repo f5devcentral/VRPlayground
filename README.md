@@ -71,7 +71,7 @@ See the full spec at **`/swagger.yaml`** and all routes under **`/api`**.
 ### Installation
 ```bash
 # Clone the repository
-git clone <repository-url>
+git clone https://github.com/f5devcentral/VRPlayground
 cd vrplayground-public
 
 # Start all services
