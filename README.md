@@ -175,6 +175,12 @@ The UI will automatically pick up your new endpoints from the OpenAPI spec!
 
 ---
 
+## 👑 Contributors
+
+The Project Leaders are:
+* [Tomer Zait](https://github.com/realgam3) aka realgam3
+* [Dimitri Belski](https://www.linkedin.com/in/dima-belski)
+
 ## 🤝 Contributing
 
 We welcome contributions! VRPlayground is designed to be community-driven:
